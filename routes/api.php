@@ -18,8 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('articles', function () {
-    return response(Article::all()->take(5),200);
-});
+//Route::get('articles', function () {
+//    return response(Article::all()->take(5),200);
+//});
 
-// Route::resource('article', 'ArticleController');
+Route::resource('article', 'ArticleController');
