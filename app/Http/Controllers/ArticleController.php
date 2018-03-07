@@ -15,7 +15,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-      return Article::all(); 
+      // REMOVER ESSE TAKE(5) QUANDO FOR FAZER A PAGINÇÃO
+      return Article::all()->take(5);
     }
 
     /**
@@ -36,7 +37,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-      $article = Article::create($request->all); 
+      $article = Article::create($request->all()); 
 
       return response()->json($article, 201);
     }
