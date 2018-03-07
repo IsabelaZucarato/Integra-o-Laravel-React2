@@ -28,7 +28,7 @@ class App extends Component {
   
   componentDidMount(){
 
-    fetch('/api/articles')
+    fetch('/api/article')
       .then(response => {
           return response.json();
       })

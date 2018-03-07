@@ -54300,7 +54300,7 @@ var App = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch('/api/articles').then(function (response) {
+      fetch('/api/article').then(function (response) {
         return response.json();
       }).then(function (articles) {
         _this2.setState({ articles: articles });
