@@ -54351,12 +54351,26 @@ var App = function (_Component) {
   }, {
     key: 'addToArticles',
     value: function addToArticles(newArticle) {
+      var _this3 = this;
+
       newArticle.id = this.state.articles.length + 1;
 
-      this.setState(function (prevState) {
-        return {
-          articles: [].concat(_toConsumableArray(prevState.articles), [newArticle])
-        };
+      fetch('api/article', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(newArticle)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this3.setState(function (prevState) {
+          return {
+            articles: [].concat(_toConsumableArray(prevState.articles), [newArticle])
+          };
+        });
       });
     }
   }, {

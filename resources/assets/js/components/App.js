@@ -79,9 +79,23 @@ class App extends Component {
   addToArticles(newArticle){
     newArticle.id = (this.state.articles.length + 1);
 
-    this.setState((prevState)=> ({
+    fetch( 'api/article', {
+       method:'post',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json'
+       },
+        
+       body: JSON.stringify(newArticle)
+   })
+   .then(response => {
+       return response.json();
+   })
+   .then( data => {
+       this.setState((prevState)=> ({
       articles: [...prevState.articles, newArticle]
-    }));
+       }))
+   })
   }
 
 
