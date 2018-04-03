@@ -16,7 +16,7 @@ class ArticleController extends Controller
     public function index()
     {
       // REMOVER ESSE TAKE(5) QUANDO FOR FAZER A PAGINÇÃO
-      return Article::all()->take(5);
+      return Article::all();
     }
 
     /**
