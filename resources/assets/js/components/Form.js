@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 class Form extends Component {
   constructor(props){
@@ -7,8 +6,8 @@ class Form extends Component {
     this.state = {
       newArticle: {
         id: null,
-        name: 'o erro ta aqui?',
-        article: 'e aqui?'
+        name: '',
+        article: ''
       }
     };
     this.createArticle = this.createArticle.bind(this);  
@@ -20,11 +19,14 @@ class Form extends Component {
 
     this.setState({
       newArticle: {
-        id: 0,
         name: this.titleInput.value,
         article: this.textInput.value
       }
     }, () => this.props.onSubmit(this.state.newArticle))
+  }
+
+  deleteArticle(){
+  	this.props.onDelete(this.state.newArticle.id);
   }
 
   render() {
@@ -32,13 +34,12 @@ class Form extends Component {
       <div className="frame formulario">
         <h2>Criar/Editar Artigo</h2>
         <form key={this.props.id}>
-          <label>Title:</label>
+          <label>Title:</label><br/>
           <input name="title" maxLength="40" type="text" defaultValue={this.props.title} ref={(input) => this.titleInput = input} />
-          <p>{this.props.title}</p>
-          <label>Article:</label>
+          <label>Article:</label><br/>
           <textarea name="article" maxLength="4000" type="text" defaultValue={this.props.article} ref={(input) => this.textInput = input} />
-          <p>{this.props.article}</p>
           <button type="submit" onClick={this.createArticle}>Save</button> 
+          <button onClick={this.deleteArticle}>Delete</button> 
         </form>
       </div>
     );

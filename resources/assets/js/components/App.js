@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Switch, Route, Link } from 'react-router-dom'
 import List from './List';
 import Form from './Form';
 import CreateButton from './CreateButton';
 import ListButton from './ListButton';
 
-
-var classForm = "displayNone";
-var classList = "";
+// var classForm = "displayNone";
+// var classList = "";
 
 class App extends Component {
 
@@ -17,17 +16,19 @@ class App extends Component {
       title: null,
       article: null,
       id: null,
-      articles: []
+      articles: [],
+      isEdit: false
     };
 
-    this.changeForm = this.changeForm.bind(this);
+    this.viewForm = this.viewForm.bind(this);
     this.openForm = this.openForm.bind(this);
     this.openList = this.openList.bind(this);
     this.addToArticles = this.addToArticles.bind(this);
+    this.editArticles = this.editArticles.bind(this);
+    this.removeFromArticles = this.removeFromArticles.bind(this);
   }
   
   componentDidMount(){
-
     fetch('/api/article')
       .then(response => {
           return response.json();
@@ -35,50 +36,47 @@ class App extends Component {
       .then(articles => {
           this.setState({ articles });
       });
-    // this.setState({
-    //   articles: [  
-    //     {id: 1, name: 'Football', article:'asuhdaso aosjda oaishas'},
-    //     {id: 2, name: 'Baseball', article:'asuhdaso aosjda oaishas'},
-    //     {id: 3, name: 'Basketball', article:'asuhdaso aosjda oaishas'}
-    //   ]
-    // })
   }
 
   openForm(){
-    this.setState({
-      title: null,
-      article: null,
-      id: null
-    });
-    classForm = "";
-    classList = "displayNone";
+    // this.setState({
+    //   title: null,
+    //   article: null,
+    //   id: null,
+    //   isEdit: false
+    // });
+    // classForm = "";
+    // classList = "displayNone";
   }
 
   openList(){
-    // isso nao deveria estar aqui 
-    this.setState({
-      title: null,
-      article: null,
-      id: null
-    });
+    // // isso nao deveria estar aqui 
+    // this.setState({
+    //   title: null,
+    //   article: null,
+    //   id: null
+    // });
 
-    classForm = "displayNone";
-    classList = "";
+    // classForm = "displayNone";
+    // classList = "";
   }
 
-  changeForm(newTitle, newArticle, newId){
+  viewForm(newTitle, newArticle, newId){
     this.setState({
       title: newTitle,
       article: newArticle,
-      id: newId
+      id: newId,
+      isEdit: true,   
+    }, function(){
+    	console.log(this.state.title);
     });
-    classForm = "";
-    classList = "displayNone";
+    // window.location.href = '/create';
+    // classForm = "";
+    // classList = "displayNone";
   }
 
   addToArticles(newArticle){
     newArticle.id = (this.state.articles.length + 1);
-
     fetch( 'api/article', {
        method:'post',
        headers: {
@@ -95,27 +93,49 @@ class App extends Component {
        this.setState((prevState)=> ({
       articles: [...prevState.articles, newArticle]
        }))
+   })  
+  }
+
+  editArticles(newArticle){
+    fetch( 'api/article', {
+       method:'put',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json'
+       },
+        
+       body: JSON.stringify(newArticle)
+     })
+     .then(response => {
+         return response.json();
+     })
+     .then( data => {
+        this.setState((prevState)=> ({
+        articles: [...prevState.articles, newArticle]
+     }))
    })
   }
 
+  removeFromArticles(id){
+
+  }
 
   render() {
+
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Primeiro Projeto em React</h1>
           <nav>
-            <CreateButton onClick={this.openForm} />
-            <ListButton onClick={this.openList} />
+            <Link to="/create" onClick={this.openForm}>Create</Link>
+            <Link to="/">List</Link>
           </nav>  
         </header>
         <div className="container">
-          <div className={classList}>
-            <List articles={this.state.articles} onChange={this.changeForm} />
-          </div>
-          <div className={classForm}>
-            <Form id={this.state.id} title={this.state.title} article={this.state.article} onSubmit={this.addToArticles} />
-          </div>
+          <Switch>
+            <Route exact path="/" render={()=><List articles={this.state.articles} onChange={this.viewForm} />} />
+            <Route path="/create" render={()=><Form id={this.state.id} title={this.state.title} article={this.state.article} onDelete={this.removeFromArticles} onSubmit={this.state.isEdit ? this.editArticles : this.addToArticles} />} />
+          </Switch> 
         </div>
       </div>
     );

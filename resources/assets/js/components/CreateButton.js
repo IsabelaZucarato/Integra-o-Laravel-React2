@@ -12,9 +12,9 @@ class CreateButton extends Component {
 
   render() {
     return (
-      <button onClick={this.newArticle}>
+      <a href="/create" onClick={this.newArticle}>
         Create
-      </button>
+      </a>
     );
   }
 }

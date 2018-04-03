@@ -1,0 +1,115 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+  .App {
+	  text-align: left;
+	}
+}
+
+button, a{
+	border-radius: 3px;
+	border: none;
+	padding: 5px 10px;
+	margin: 0 5px;
+
+	&:hover, &:focus{
+		background-color: #ddd;
+	}
+}
+
+header {
+	height: 130px;
+
+  	h1 {
+	  	font-size: 1.5em;
+	    background-color: #222;
+		color: white;
+  		padding: 25px;
+  		margin: 0;
+	}
+
+	nav{
+		text-align: right;
+		background-color: #1a9e90;
+		padding: 10px;
+
+		button, a{
+			background: #fff;
+			color: #222;
+			text-decoration: none;
+			font-size: 10pt;
+		}
+
+	}	
+}
+
+.container{
+	position: relative;
+  	margin: auto;
+  	padding-top: 30px;
+  	width: 85%;
+}
+
+.lista{
+  width: 55%;
+  display: inline-block;
+  padding-left: 20px;
+  margin: 0;
+  line-height: 2;
+
+	button{
+		background: #f6f6f6;
+		color: #222;
+		float: right;
+	}
+}
+
+.view{
+	float: right;
+	width: 35%;
+	border: solid 0.5px #ddd;
+	border-radius: 10px;
+	background: #f6f6f6;
+	padding: 20px;
+
+	h3{
+		margin-top: 10px;
+	}
+
+}
+
+.formulario{
+	form{
+		width: 60%;
+
+		label{
+			line-height: 2;
+			color: #222;
+			font-weight: 700;
+		}
+
+		input, textarea{
+			width: 100%;
+			border-style: ridge;
+			line-height: 1.6;
+			margin-bottom: 20px;
+		}
+
+		textarea{
+			height: 150px;
+			resize: none;
+		}
+	}
+
+	button{
+		margin-right: 10px;
+		margin-left: 0;
+	}
+}
+
+.displayNone{
+  visibility: hidden;
+}
+

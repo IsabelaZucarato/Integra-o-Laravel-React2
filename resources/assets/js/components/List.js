@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Link } from 'react-router-dom'
 
 class List extends Component { 
 
@@ -17,7 +17,7 @@ class List extends Component {
             <li key={article.id} >
                 {article.title}
                 <button onClick={viewArticle}>View</button>
-                <button onClick={editArticle}>Edit</button> 
+                <Link to="/create" onClick={editArticle}>Edit</Link> 
             </li>
         );
     })
@@ -46,8 +46,8 @@ class List extends Component {
           { this.renderArticles() }
         </ul> 
         <div className="view">
-          <h2>{this.state.articleName}</h2>
-          <p>{this.state.articleName}</p>
+          <h3>{this.state.articleName}</h3>
+          <p>{this.state.articleText}</p>
         </div>
       </div> 
     );
